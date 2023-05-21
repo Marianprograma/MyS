@@ -1,15 +1,18 @@
 package gida.simulators.labs.first.behaviors;
 
+import gida.simulators.labs.first.entities.Aircraft;
 import gida.simulators.labs.first.utils.Randomizer;
 //import gida.simulators.labs.first.utils.distributions.Distribution;
 
 public class ArrivalBehavior implements Behavior {
 
     private Randomizer randomizer;
+    private Aircraft aircraft;
     //private Distribution<Double> distribution;
 
-    public ArrivalBehavior(Randomizer randomizer) {
+    public ArrivalBehavior(Randomizer randomizer, Aircraft aircraft) {
         this.randomizer = randomizer;
+        this.aircraft = aircraft;
     }
 
     /**
@@ -19,27 +22,21 @@ public class ArrivalBehavior implements Behavior {
     @Override
     public double nextTime() {
         double ret = 0.0;
-        double r = this.randomizer.nextRandom();
-        double z = 0.0,zprima= 0.0,muz=12,varianzaz=Math.sqrt(2),muy=60,varianzay=2;
-            //if
-            ret = -(Math.log(1-r))*40;
-                //if
-                ret = -(Math.log(1-r))*20;
-            //if
-            ret = -(Math.log(1-r))*30;
-                //if
-                ret = -(Math.log(1-r))*15;
-            //if
-            for(int i=0;i<24;i++){
-                //UNIFORME(0,1)
-                 z += r;
-            }
-            zprima = (z-muz)/varianzaz;
-                //if
-                muy=30;
-                ret = (zprima *varianzay)+muy;
+            //if liviano
+                //if tiempo
+                ret = this.randomizer.nextExponencial(20);
                 //else
-                ret = (zprima * varianzay) + muy;
+                ret = this.randomizer.nextExponencial(40);
+            //if medium
+                //if tiempo
+                ret = this.randomizer.nextExponencial(15);
+                //else
+                ret = this.randomizer.nextExponencial(30);
+            //if pesado
+                //if tiempo
+                ret = this.randomizer.nextGaussiano(30, 2);
+                //else
+                ret = this.randomizer.nextGaussiano(60, 2);
             
         /*if(r<0.3){
             ret=10;

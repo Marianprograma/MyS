@@ -1,6 +1,7 @@
 package gida.simulators.labs.first.entities;
 
 import gida.simulators.labs.first.resources.Server;
+import gida.simulators.labs.first.utils.Randomizer;
 
 //import gida.simulators.labs.first.behaviors.Behavior;
 
@@ -19,9 +20,9 @@ public class Medium extends Aircraft {
     }
 
     @Override
-    public void wearAway(Server server, double random) {
+    public void wearAway(Server server, Randomizer randomizer) {
         double uniform;
-        uniform=1+(4-1)*random;
+        uniform=randomizer.nextUniforme(1, 4);
         server.setWear(server.getWear() - uniform);
     }
     

@@ -5,6 +5,9 @@ import java.util.List;
 import gida.simulators.labs.first.behaviors.ArrivalBehavior;
 import gida.simulators.labs.first.behaviors.EndOfServiceBehavior;
 import gida.simulators.labs.first.entities.Aircraft;
+import gida.simulators.labs.first.entities.Heavy;
+import gida.simulators.labs.first.entities.LightWeight;
+import gida.simulators.labs.first.entities.Medium;
 import gida.simulators.labs.first.events.Arrival;
 import gida.simulators.labs.first.events.StopSimulation;
 import gida.simulators.labs.first.events.Event;
@@ -23,13 +26,25 @@ public class AirportSim extends Engine {
                 super(report);
                 this.servers = servers;
                 this.fel = new FutureEventList();
-                EndOfServiceBehavior eosb = new EndOfServiceBehavior(randomizer);
-                Aircraft a1 = new Aircraft(0);
-                ArrivalBehavior arrb = new ArrivalBehavior(randomizer);
-                Arrival e1 = new Arrival(0, a1, arrb, eosb, policy);
+                Aircraft a1 = new LightWeight(0);
+                Aircraft a2 = new Medium(1);
+                Aircraft a3 = new Heavy(2);
+                EndOfServiceBehavior eosbL = new EndOfServiceBehavior(randomizer);
+                EndOfServiceBehavior eosbM = new EndOfServiceBehavior(randomizer);
+                EndOfServiceBehavior eosbH = new EndOfServiceBehavior(randomizer);
+                ArrivalBehavior arrbL = new ArrivalBehavior(randomizer);
+                ArrivalBehavior arrbM = new ArrivalBehavior(randomizer);
+                ArrivalBehavior arrbH = new ArrivalBehavior(randomizer);
+                Arrival e1 = new Arrival(0, a1, arrbL, eosbL, policy);//POLICY MODIFICAR
+                Arrival e2 = new Arrival(0, a2, arrbM, eosbM, policy);
+                Arrival e3 = new Arrival(0, a3, arrbH, eosbH, policy);
                 e1.getEntity().setArrival(e1);
+                e2.getEntity().setArrival(e2);
+                e3.getEntity().setArrival(e3);
                 fel.insert(new StopSimulation(endClock, this));
                 fel.insert(e1);
+                fel.insert(e2);
+                fel.insert(e3);
             }
 
     @Override

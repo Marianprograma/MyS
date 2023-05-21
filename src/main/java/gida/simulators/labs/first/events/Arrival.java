@@ -50,9 +50,9 @@ public class Arrival extends Event {
             ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime() + servidor.getIdleTime());
         }
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
-        Entity e = new Aircraft(this.getEntity().getId() + 1);
-        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), e, this.getBehavior(), this.endOfServiceBehavior, this.policy);
-        e.setArrival(a);
+        Aircraft aircraft = ((Aircraft)this.getEntity()).getNextAircraft();
+        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), aircraft, this.getBehavior(), this.endOfServiceBehavior, this.policy);
+        aircraft.setArrival(a);
         fel.insert(a);
         
     }
