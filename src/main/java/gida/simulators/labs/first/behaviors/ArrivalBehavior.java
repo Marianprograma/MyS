@@ -22,29 +22,33 @@ public class ArrivalBehavior implements Behavior {
     @Override
     public double nextTime() {
         double ret = 0.0;
-            //if liviano
-                //if tiempo
+        if(aircraft.getId()==0){
+            //if tiempo
                 ret = this.randomizer.nextExponencial(20);
                 //else
                 ret = this.randomizer.nextExponencial(40);
-            //if medium
-                //if tiempo
+        }else if(aircraft.getId()==1){
+            //if tiempo
                 ret = this.randomizer.nextExponencial(15);
                 //else
                 ret = this.randomizer.nextExponencial(30);
-            //if pesado
-                //if tiempo
+        }else if(aircraft.getId()==2){
+            //if tiempo
                 ret = this.randomizer.nextGaussiano(30, 2);
                 //else
                 ret = this.randomizer.nextGaussiano(60, 2);
-            
-        /*if(r<0.3){
-            ret=10;
-        }else if(r<0.7){
-            ret=15;
-        }else if (r<1){
-            ret=20;
-        }*/
+        }
+ 
         return ret;
     }
 }
+
+
+    //TABLA TP 1
+    /*if(r<0.3){
+    ret=10;
+    }else if(r<0.7){
+    ret=15;
+    }else if (r<1){
+    ret=20;
+    }*/
