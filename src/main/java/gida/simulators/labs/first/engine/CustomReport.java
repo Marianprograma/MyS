@@ -95,12 +95,11 @@ public class CustomReport implements Reportable {
         System.out.println("Tiempo total de transito:"+ this.getTotalTransitTime());
         System.out.println("Tiempo maximo de transito:"+ this.getMaxTransitTime());
         System.out.println("Tiempo medio de transito: "+(this.getTotalTransitTime()/this.getContPlane()));
+        //for de tipos de pistas
         System.out.println("Tiempo total de ocio:"+ this.getTotalIdleTime());
         System.out.println("Porcentaje del tiempo total de ocio con respecto al tiempo de simulacion:"+((this.getTotalIdleTime()*100)/40320)+" %");
         System.out.println("Tiempo maximo de ocio:"+ this.getMaxIdleTime());
         System.out.println("Porcentaje del tiempo maximo de ocio con respecto al tiempo total de ocio:"+((this.getMaxIdleTime()*100)/this.getTotalIdleTime())+" %");
         System.out.println("Tamaño maximo de la cola de espera para el servidor:"+this.getMaxSize());
     }
-
-
 }

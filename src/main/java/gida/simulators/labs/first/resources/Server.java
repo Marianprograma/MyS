@@ -18,17 +18,6 @@ public abstract class Server {
     private ServerQueuePolicy policy;
     private double idleTime;
     private int maxSizeQueues;
-    //tp2
-    private double wear;
-
-    public double getWear() {
-        return wear;
-    }
-
-    public void setWear(double wear) {
-        this.wear = wear;
-    }
-
     //Tp1
 
     public int getMaxSizeQueues() {

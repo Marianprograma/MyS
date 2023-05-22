@@ -28,7 +28,7 @@ public class Arrival extends Event {
     @Override
     public void planificate(FutureEventList fel, List<Server> servers,Reportable report) {
         //Seleccionar el sv
-        Server servidor = policy.selectServer(servers);
+        Server servidor = policy.selectServer(servers,this.getEntity());
 
         if(servidor.isBusy()){
             servidor.enqueue(this.getEntity());
@@ -50,6 +50,7 @@ public class Arrival extends Event {
             ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime() + servidor.getIdleTime());
         }
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
+        //abstraer para que esto pase para todas las entidades
         Aircraft aircraft = ((Aircraft)this.getEntity()).getNextAircraft();
         Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), aircraft, this.getBehavior(), this.endOfServiceBehavior, this.policy);
         aircraft.setArrival(a);
