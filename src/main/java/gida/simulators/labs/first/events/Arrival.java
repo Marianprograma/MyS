@@ -8,7 +8,6 @@ import gida.simulators.labs.first.behaviors.EndOfServiceBehavior;
 import gida.simulators.labs.first.engine.CustomReport;
 import gida.simulators.labs.first.engine.FutureEventList;
 import gida.simulators.labs.first.engine.Reportable;
-import gida.simulators.labs.first.entities.Aircraft;
 import gida.simulators.labs.first.entities.Entity;
 import gida.simulators.labs.first.policies.ServerSelectionPolicy;
 import gida.simulators.labs.first.resources.Server;
@@ -18,11 +17,10 @@ public class Arrival extends Event {
     private ServerSelectionPolicy policy;
     private EndOfServiceBehavior endOfServiceBehavior;
 
-    public Arrival(double clock, Entity entity, Behavior behavior,
-            EndOfServiceBehavior endOfServiceBehavior, ServerSelectionPolicy policy) {
-                super(clock, entity, behavior, 2);
-                this.policy = policy;
-                this.endOfServiceBehavior = endOfServiceBehavior;
+    public Arrival(double clock, Entity entity, Behavior behavior,EndOfServiceBehavior endOfServiceBehavior, ServerSelectionPolicy policy) {
+        super(clock, entity, behavior, 2);
+        this.policy = policy;
+        this.endOfServiceBehavior = endOfServiceBehavior;
     }
 
     @Override
@@ -50,10 +48,12 @@ public class Arrival extends Event {
             ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime() + servidor.getIdleTime());
         }
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
+        
         //abstraer para que esto pase para todas las entidades
-        Aircraft aircraft = ((Aircraft)this.getEntity()).getNextAircraft();
-        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), aircraft, this.getBehavior(), this.endOfServiceBehavior, this.policy);
-        aircraft.setArrival(a);
+        Entity entity = this.getEntity().getNextEntity();
+        //Aircraft aircraft = ((Aircraft)this.getEntity()).getNextAircraft();
+        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
+        entity.setArrival(a);
         fel.insert(a);
         
     }

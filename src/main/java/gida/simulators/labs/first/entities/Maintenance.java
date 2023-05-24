@@ -7,6 +7,12 @@ public class Maintenance extends Entity {
     public Maintenance(int id) {
         super(id);
     }
+
+    @Override
+    public Entity getNextEntity() {
+        Maintenance l = new Maintenance(getId());
+        return l;
+    }
     
 
     public void repair(Airstrip airstrip){

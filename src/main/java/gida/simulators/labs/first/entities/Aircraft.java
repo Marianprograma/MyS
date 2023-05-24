@@ -19,6 +19,12 @@ public abstract class Aircraft extends Entity {
     }
 
     public abstract Aircraft getNextAircraft();
+    
+
+    @Override
+    public Entity getNextEntity(){
+        return getNextAircraft();
+    }
 
     public abstract void wearAway(Airstrip server, Randomizer ramdom);
 

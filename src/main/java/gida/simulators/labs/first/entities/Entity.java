@@ -13,6 +13,9 @@ public abstract class Entity {
     private double waitingTime;
     private double transitTime;
 
+
+    public abstract Entity getNextEntity();
+
     public int getIdCount() {
         return idCount;
     }

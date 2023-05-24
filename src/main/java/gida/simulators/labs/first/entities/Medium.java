@@ -16,7 +16,7 @@ public class Medium extends Aircraft {
 
     @Override
     public Aircraft getNextAircraft() {
-        Medium l = new  Medium(getId());
+        Medium l = new Medium(getId());
         return l;
     }
 

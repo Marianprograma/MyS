@@ -35,13 +35,33 @@ public class ScenarioBuilder {
         Queue queue = new CustomQueue(queuesQuantity);
         queues.add(queuesQuantity, queue);
         Server s0=new AirstripAux(0, queues, new OneToOneQueuePolicy());
-        Server s1=new AirstripL(1, queues, new OneToOneQueuePolicy());
-        Server s2=new AirstripM(2, queues, new OneToOneQueuePolicy());
-        Server s3=new AirstripH(3,queues,new OneToOneQueuePolicy());
+
+        Server s1L=new AirstripL(1, queues, new OneToOneQueuePolicy());
+        Server s2L=new AirstripL(2, queues, new OneToOneQueuePolicy());
+        Server s3L=new AirstripL(3, queues, new OneToOneQueuePolicy());
+
+        Server s1M=new AirstripM(4, queues, new OneToOneQueuePolicy());
+        Server s2M=new AirstripM(5, queues, new OneToOneQueuePolicy());
+        Server s3M=new AirstripM(6, queues, new OneToOneQueuePolicy());
+        Server s4M=new AirstripM(7, queues, new OneToOneQueuePolicy());
+
+        Server s1H=new AirstripH(8,queues,new OneToOneQueuePolicy());
+        Server s2H=new AirstripH(9,queues,new OneToOneQueuePolicy());
+
         servers.add(s0);
-        servers.add(s1);
-        servers.add(s2);
-        servers.add(s3);
+        servers.add(s1L);
+        servers.add(s2L);
+        servers.add(s3L);
+        servers.add(s1M);
+        servers.add(s2M);
+        servers.add(s3M);
+        servers.add(s4M);
+        servers.add(s1H);
+        servers.add(s2H);
+
+
+
+
         return servers;
     }
 }

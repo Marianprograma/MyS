@@ -8,7 +8,7 @@ import gida.simulators.labs.first.policies.ServerQueuePolicy;
 //import javafx.beans.property.Property;
 
 public abstract class Server {
-
+    //Tp1
     private int id;
     private int idCount;
     private Entity currentEntity;
@@ -18,7 +18,7 @@ public abstract class Server {
     private ServerQueuePolicy policy;
     private double idleTime;
     private int maxSizeQueues;
-    //Tp1
+    
 
     public int getMaxSizeQueues() {
         return maxSizeQueues;
