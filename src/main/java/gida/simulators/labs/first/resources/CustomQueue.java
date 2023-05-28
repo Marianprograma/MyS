@@ -3,16 +3,25 @@ package gida.simulators.labs.first.resources;
 import java.util.LinkedList;
 
 import gida.simulators.labs.first.entities.Entity;
+import gida.simulators.labs.first.entities.Maintenance;
 
 public class CustomQueue implements Queue {
 
     private int id;
-    private java.util.Queue<Entity> queue;
+    private java.util.List<Entity> queue;
     public int maxSize;
 
     public CustomQueue(int id){
         this.id = id;
         this.queue = new LinkedList<>();
+    }
+
+    public boolean isUsable(){
+        if(this.queue.get(this.queue.size()).getClass() != Maintenance.class){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public int getMaxSize() {
@@ -44,12 +53,12 @@ public class CustomQueue implements Queue {
 
     @Override
     public Entity checkNext() {
-        return this.queue.peek();
+        return this.queue.get(0);
     }
 
     @Override
     public Entity next() {
-        return this.queue.poll();
+        return this.queue.remove(0);
     }
 
     @Override

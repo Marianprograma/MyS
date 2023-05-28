@@ -33,6 +33,10 @@ public abstract class Server {
         this.queues = queues;
         this.policy = policy;
     }
+
+    public List<Queue> getQueues() {
+        return queues;
+    }
     
     public int getId() {
         return this.id;

@@ -19,6 +19,8 @@ public abstract class Airstrip extends Server {
         this.wear = wear;
     }
 
+    public abstract double porcentajeWear();
+
     @Override
     public String toString() {
         String ret = super.toString();
