@@ -32,8 +32,12 @@ public class ScenarioBuilder {
     public static List<Server> multipleServersOneQueue(int queuesQuantity) {
         List<Server> servers = new ArrayList<>();
         List<Queue> queues = new ArrayList<>();
-        Queue queue = new CustomQueue(queuesQuantity);
-        queues.add(queuesQuantity, queue);
+        //Queue queue = new CustomQueue(queuesQuantity);
+        //queues.add(queuesQuantity,queues);
+        for(int i=0;i < queuesQuantity;i++){
+            Queue queue = new CustomQueue(i);
+            queues.add(queue);
+        }
         Server s0=new AirstripAux(0, queues, new OneToOneQueuePolicy());
 
         Server s1L=new AirstripL(1, queues, new OneToOneQueuePolicy());
@@ -58,9 +62,6 @@ public class ScenarioBuilder {
         servers.add(s4M);
         servers.add(s1H);
         servers.add(s2H);
-
-
-
 
         return servers;
     }

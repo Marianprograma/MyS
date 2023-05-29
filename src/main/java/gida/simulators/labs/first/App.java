@@ -2,7 +2,8 @@ package gida.simulators.labs.first;
 
 import gida.simulators.labs.first.engine.AirportSim;
 import gida.simulators.labs.first.engine.CustomReport;
-import gida.simulators.labs.first.policies.UniqueServerSelectionPolicy;
+import gida.simulators.labs.first.policies.MultipleServerSelectionPolicy;
+//import gida.simulators.labs.first.policies.UniqueServerSelectionPolicy;
 import gida.simulators.labs.first.utils.CustomRandomizer;
 import gida.simulators.labs.first.utils.ScenarioBuilder;
 
@@ -11,6 +12,6 @@ public class App {
     private static final float SIMULATION_LENGHT = 40320f;
 
     public static void main(String[] args) {
-        new AirportSim(SIMULATION_LENGHT, ScenarioBuilder.multipleServersOneQueue(4), new UniqueServerSelectionPolicy(), new CustomRandomizer(), new CustomReport()).run();
+        new AirportSim(SIMULATION_LENGHT, ScenarioBuilder.multipleServersOneQueue(10), new MultipleServerSelectionPolicy(), new CustomRandomizer(), new CustomReport()).run();
     }
 }

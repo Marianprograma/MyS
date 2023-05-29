@@ -42,10 +42,10 @@ public class Arrival extends Event {
             //analytical
             servidor.setIdleTimeFinishedMark(this.getClock());
             servidor.setIdleTime(servidor.getIdleTimeFinishedMark()-servidor.getIdleTimeStartMark());
-            if(servidor.getIdleTime()>((CustomReport)report).getMaxIdleTime()){
-                ((CustomReport)report).setMaxIdleTime(servidor.getIdleTime());
+            if(servidor.getIdleTime()>((CustomReport)report).getMaxIdleTime(servidor)){
+                ((CustomReport)report).setMaxIdleTime(servidor.getIdleTime(),servidor);
             }
-            ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime() + servidor.getIdleTime());
+            ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime(servidor) + servidor.getIdleTime(),servidor);
         }
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
         
