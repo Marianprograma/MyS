@@ -10,6 +10,8 @@ public class AirstripH extends Airstrip {
         super(id, queues, serverQueuePolicy,5000);
     }
 
-    
+    public double porcentajeWear(){
+        return (this.getWear() * 100)/5000;
+    }
     
 }

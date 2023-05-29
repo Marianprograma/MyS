@@ -11,5 +11,8 @@ public class AirstripM extends Airstrip{
         super(id, queues, serverQueuePolicy,3000);
         
     }
+    public double porcentajeWear(){
+        return (this.getWear() * 100)/3000;
+    }
     
 }
