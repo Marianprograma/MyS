@@ -54,7 +54,7 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
             }
         }
         
-        if (entity.getClass() != Maintenance.class)
+        if (entity.getClass() != Maintenance.class){
             for (j = 0; j < (sservers.size())-1; j++) {
                 if (sservers.get(j).getCurrentEntity().getClass() != Maintenance.class){
                     if (sservers.get(minQ).getMaxSizeQueues() <= sservers.get(j+1).getMaxSizeQueues()){
@@ -62,7 +62,9 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
                     }else{
                         minQ = j+1;
                     }
+                }
             }
+            return sservers.get(minQ);
         }else {
                 int var=0;
                 for (i = 0; i < servers.size()-1; i++) {
@@ -74,11 +76,10 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
                         var=i+1;
                     }
                 }
-                sservers.add(servers.get(var));
+                return servers.get(var);
         }        
         //en caso de no tener sv selecciona el -1 del arreglo serverTipo, el cual devuelve el server aux, 
         //en muy pocos casos sucedera esto ya que nuestra politica y forma de programar las entidades no deja que se utilice.
-        return sservers.get(minQ);
     }
 }
 
