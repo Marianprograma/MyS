@@ -66,6 +66,6 @@ public class AirportSim extends Engine {
             Event e =  fel.getImminent();
             e.planificate(fel,this.servers,this.getReportable());
         }
-        getReportable().generateReport(servers);
+        getReportable().generateReport(this.servers);
     }
 }

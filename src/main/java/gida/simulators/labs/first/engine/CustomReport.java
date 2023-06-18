@@ -100,11 +100,11 @@ public class CustomReport implements Reportable {
         System.out.println("Tiempo maximo de transito:"+ this.getMaxTransitTime());
         System.out.println("Tiempo medio de transito: "+(this.getTotalTransitTime()/this.getContPlane()));
         for(int i=0;i<10;i++){
-            System.out.println("Tiempo total de ocio pista: "+ i+":"+ this.getTotalIdleTime(servers.get(i)));
-            System.out.println("Porcentaje del tiempo total de ocio con respecto al tiempo de simulacion pista "+i+":"+((this.getTotalIdleTime(servers.get(i))*100)/40320)+" %");
+            System.out.println("Tiempo total de ocio pista: "+i+":"+ this.getTotalIdleTime(servers.get(i)));
+            System.out.println("Porcentaje del tiempo total de ocio con respecto al tiempo de simulacion pista: "+i+":"+((this.getTotalIdleTime(servers.get(i))*100)/40320)+" %");
             System.out.println("Tiempo maximo de ocio pista "+i+":"+ this.getMaxIdleTime(servers.get(i)));
-            System.out.println("Porcentaje del tiempo maximo de ocio con respecto al tiempo total de ocio pista "+i+":"+((this.getMaxIdleTime(servers.get(i))*100)/this.getTotalIdleTime(servers.get(i)))+" %");
-            System.out.println("Tamaño maximo de la cola de espera para el servidor pista"+i+":"+this.getMaxSize());
+            System.out.println("Porcentaje del tiempo maximo de ocio con respecto al tiempo total de ocio pista: "+i+":"+((this.getMaxIdleTime(servers.get(i))*100)/this.getTotalIdleTime(servers.get(i)))+" %");
+            System.out.println("Tamaño maximo de la cola de espera para el servidor pista: "+i+":"+this.getMaxSize());
         }
     }
 }
