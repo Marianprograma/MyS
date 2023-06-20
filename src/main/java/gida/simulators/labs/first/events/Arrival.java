@@ -51,6 +51,8 @@ public class Arrival extends Event {
         
         //abstraer para que esto pase para todas las entidades
         Entity entity = this.getEntity().getNextEntity();
+        //System.out.println("ENTIDAD QUE LLEGO= "+entity.getClass());
+        //System.out.println("Al servidor = "+servidor.getId());
         Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
         entity.setArrival(a);
         fel.insert(a);

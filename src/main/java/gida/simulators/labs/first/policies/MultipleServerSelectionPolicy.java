@@ -45,15 +45,16 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
     public Server selectServer(List<Server> servers, Entity entity) {
         
         if (entity.getClass() != Maintenance.class){
-            List<Server> sservers = filterType(servers, entity);
-            int j,minQ=0,m=0;
-            int i=0;
+        List<Server> sservers = filterType(servers, entity);
+        int j,minQ=0;
+        int i=0;
         
-            for(i=0;i<sservers.size();i++){
-                if(!sservers.get(i).isBusy()){
-                    return sservers.get(i);
-                }
+        for(i=0;i<sservers.size();i++){
+            if(!sservers.get(i).isBusy()){
+                return sservers.get(i);
             }
+        }
+        
             for (j = 0; j < (sservers.size())-1; j++) {
                 if (sservers.get(j).getCurrentEntity().getClass() != Maintenance.class){
                     if (sservers.get(minQ).getMaxSizeQueues() <= sservers.get(j+1).getMaxSizeQueues()){
@@ -61,27 +62,24 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
                     }else{
                         minQ = j+1;
                     }
-                }else{
-                    m+=1;
                 }
             }
-            if(m==sservers.size()){
-                return servers.get(0);
-            }else{
-                return sservers.get(minQ);
-            }
+            
+            return sservers.get(minQ);
         }else {
-                int var=0;
-                for (int i = 0; i < servers.size()-1; i++) {
-                    Airstrip a1 =  (Airstrip) servers.get(var);
-                    Airstrip a2 = (Airstrip) servers.get(i+1);
-                    if(a1.porcentajeWear() <= a2.porcentajeWear()){
-                        var=i;
-                    }else{
-                        var=i+1;
+                Airstrip a1 =  (Airstrip) servers.get(1);
+                double porcentajeMin=a1.porcentajeWear();
+                System.out.println("porcentajeMin 1= "+porcentajeMin);
+                int localice=1;
+                for (int i = 2; i < servers.size()-1; i++) {
+                    Airstrip a2 = (Airstrip) servers.get(i);
+                    if(porcentajeMin > a2.porcentajeWear()){
+                        localice=i;
+                        porcentajeMin = a2.porcentajeWear();
+                        System.out.println("porcentajeMin cambio a= "+i+"--"+porcentajeMin);
                     }
                 }
-                return servers.get(var);
+                return servers.get(localice);
         }        
         //en caso de no tener sv selecciona el -1 del arreglo serverTipo, el cual devuelve el server aux, 
         //en muy pocos casos sucedera esto ya que nuestra politica y forma de programar las entidades no deja que se utilice.
