@@ -44,17 +44,16 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
     @Override
     public Server selectServer(List<Server> servers, Entity entity) {
         
-        List<Server> sservers = filterType(servers, entity);
-        int j,minQ=0;
-        int i=0;
-        
-        for(i=0;i<sservers.size();i++){
-            if(!sservers.get(i).isBusy()){
-                return sservers.get(i);
-            }
-        }
-        
         if (entity.getClass() != Maintenance.class){
+            List<Server> sservers = filterType(servers, entity);
+            int j,minQ=0,m=0;
+            int i=0;
+        
+            for(i=0;i<sservers.size();i++){
+                if(!sservers.get(i).isBusy()){
+                    return sservers.get(i);
+                }
+            }
             for (j = 0; j < (sservers.size())-1; j++) {
                 if (sservers.get(j).getCurrentEntity().getClass() != Maintenance.class){
                     if (sservers.get(minQ).getMaxSizeQueues() <= sservers.get(j+1).getMaxSizeQueues()){
@@ -62,15 +61,21 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
                     }else{
                         minQ = j+1;
                     }
+                }else{
+                    m+=1;
                 }
             }
-            return sservers.get(minQ);
+            if(m==sservers.size()){
+                return servers.get(0);
+            }else{
+                return sservers.get(minQ);
+            }
         }else {
                 int var=0;
-                for (i = 0; i < servers.size()-1; i++) {
+                for (int i = 0; i < servers.size()-1; i++) {
                     Airstrip a1 =  (Airstrip) servers.get(var);
                     Airstrip a2 = (Airstrip) servers.get(i+1);
-                    if(a1.porcentajeWear() >= a2.porcentajeWear()){
+                    if(a1.porcentajeWear() <= a2.porcentajeWear()){
                         var=i;
                     }else{
                         var=i+1;

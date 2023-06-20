@@ -91,16 +91,16 @@ public abstract class Server {
     }
 
     public boolean queuesEmpty() {
-        return this.policy.queuesEmpty(queues);
+        return this.policy.queuesEmpty(queues,id);
     }
 
     public void enqueue(Entity entity) {
-        this.policy.enqueue(this.queues, entity);
-        setMaxSizeQueues(this.queues.get(0).getMaxSize());
+        this.policy.enqueue(this.queues, entity,id);
+        setMaxSizeQueues(this.queues.get(id).getMaxSize());
     }
 
     public Entity dequeue() {
-        return this.policy.dequeue(this.queues);
+        return this.policy.dequeue(this.queues,id);
     }
 
     @Override

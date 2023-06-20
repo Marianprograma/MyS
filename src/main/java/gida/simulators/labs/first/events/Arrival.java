@@ -30,8 +30,8 @@ public class Arrival extends Event {
 
         if(servidor.isBusy()){
             servidor.enqueue(this.getEntity());
-            ((CustomReport)report).setMaxSize(servidor.getMaxSizeQueues());
             //analytical
+            ((CustomReport)report).setMaxSize(servidor.getMaxSizeQueues(),servidor.getId());
             servidor.setIdleTimeStartMark(0);
             servidor.setIdleTimeFinishedMark(0);
         }else{
@@ -42,16 +42,15 @@ public class Arrival extends Event {
             //analytical
             servidor.setIdleTimeFinishedMark(this.getClock());
             servidor.setIdleTime(servidor.getIdleTimeFinishedMark()-servidor.getIdleTimeStartMark());
-            if(servidor.getIdleTime()>((CustomReport)report).getMaxIdleTime(servidor)){
-                ((CustomReport)report).setMaxIdleTime(servidor.getIdleTime(),servidor);
+            if(servidor.getIdleTime()>((CustomReport)report).getMaxIdleTime(servidor.getId())){
+                ((CustomReport)report).setMaxIdleTime(servidor.getIdleTime(),servidor.getId());
             }
-            ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime(servidor) + servidor.getIdleTime(),servidor);
+            ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime(servidor.getId()) + servidor.getIdleTime(),servidor.getId());
         }
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
         
         //abstraer para que esto pase para todas las entidades
         Entity entity = this.getEntity().getNextEntity();
-        //Aircraft aircraft = ((Aircraft)this.getEntity()).getNextAircraft();
         Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
         entity.setArrival(a);
         fel.insert(a);
