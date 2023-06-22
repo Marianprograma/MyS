@@ -30,9 +30,9 @@ public class EndOfServiceBehavior implements Behavior {
         if(entity.getClass()==LightWeight.class){
             if(r<0.363){
                 ret=5.0;
-            }else if(r<0.475){
+            }else if(r<0.838){
                 ret=10.0;
-            }else if(r<0.162){
+            }else if(r<1){
                 ret=15.0;
             }
         }else if(entity.getClass()==Medium.class){
@@ -42,11 +42,11 @@ public class EndOfServiceBehavior implements Behavior {
         }else if(entity.getClass()==Heavy.class){
             if(r<0.65){
                 ret=40.0;
-            }else if(r<0.35){
+            }else if(r<1){
                 ret=50.0;
             }
         }else if (entity.getClass()==Maintenance.class) {
-            this.randomizer.nextUniforme(12, 24);
+            ret=this.randomizer.nextUniforme(12, 24)*60;
         }         
         
         return ret;

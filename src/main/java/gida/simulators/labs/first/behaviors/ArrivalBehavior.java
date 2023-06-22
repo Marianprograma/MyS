@@ -46,7 +46,7 @@ public class ArrivalBehavior implements Behavior {
                 ret = this.randomizer.nextGaussiano(60, 2);
             }
         }else if(entity.getClass()==Maintenance.class){
-            ret = this.randomizer.nextGaussiano(5, 0.5);
+            ret = this.randomizer.nextGaussiano(5, 0.5)*1440;
         }
  
         return ret;
