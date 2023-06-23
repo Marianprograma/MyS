@@ -12,6 +12,7 @@ import gida.simulators.labs.first.resources.Airstrip;
 import gida.simulators.labs.first.resources.AirstripH;
 import gida.simulators.labs.first.resources.AirstripL;
 import gida.simulators.labs.first.resources.AirstripM;
+import gida.simulators.labs.first.resources.Queue;
 import gida.simulators.labs.first.resources.Server;
 
 public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
@@ -54,35 +55,57 @@ public class MultipleServerSelectionPolicy implements ServerSelectionPolicy {
                 return sservers.get(i);
             }
         }
-        
-            for (j = 0; j < (sservers.size())-1; j++) {
-                if (sservers.get(j).getCurrentEntity().getClass() != Maintenance.class){
-                    if (sservers.get(minQ).getMaxSizeQueues() <= sservers.get(j+1).getMaxSizeQueues()){
-                        minQ = j;
-                    }else{
-                        minQ = j+1;
-                    }
-                }
+
+        List<Server> servers3 = obtenerPistasSinMantenimiento(sservers);
+        if (servers3.size() == 0)
+            return servers.get(0); // this one is the aux airstrip
+
+
+        for (j = 0; j < (servers3.size())-1; j++) {
+            if (servers3.get(minQ).getMaxSizeQueues() <= servers3.get(j+1).getMaxSizeQueues()){
+                minQ = j;
+            }else{
+                minQ = j+1;
             }
-            
-            return sservers.get(minQ);
-        }else {
+        }
+        return servers3.get(minQ);
+
+        } else {
                 Airstrip a1 =  (Airstrip) servers.get(1);
                 double porcentajeMin=a1.porcentajeWear();
-                System.out.println("porcentajeMin 1= "+porcentajeMin);
                 int localice=1;
                 for (int i = 2; i < servers.size()-1; i++) {
                     Airstrip a2 = (Airstrip) servers.get(i);
                     if(porcentajeMin > a2.porcentajeWear()){
                         localice=i;
                         porcentajeMin = a2.porcentajeWear();
-                        System.out.println("porcentajeMin cambio a= "+i+"--"+porcentajeMin);
                     }
                 }
                 return servers.get(localice);
-        }        
+        }
         //en caso de no tener sv selecciona el -1 del arreglo serverTipo, el cual devuelve el server aux, 
         //en muy pocos casos sucedera esto ya que nuestra politica y forma de programar las entidades no deja que se utilice.
+    }
+
+    private List<Server> obtenerPistasSinMantenimiento(List<Server> servers) {
+        List<Server> ret = new ArrayList<>();
+
+        for (Server s : servers) 
+            if(!s.getCurrentEntity().getClass().getSimpleName().equals("Maintenance") && !estaMantenimientoEnCola(s))
+                ret.add(s);
+                
+        return ret;
+    }
+
+    private boolean estaMantenimientoEnCola(Server s) {
+        List<Queue> queues = s.getQueues();
+
+        for (Queue q: queues) {
+            if(!q.isUsable())
+                return true;
+        }
+
+        return false;
     }
 }
 

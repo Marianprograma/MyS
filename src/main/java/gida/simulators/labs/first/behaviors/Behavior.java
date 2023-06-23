@@ -1,6 +1,7 @@
 package gida.simulators.labs.first.behaviors;
 
-@FunctionalInterface
+import gida.simulators.labs.first.utils.Randomizer;
+
 public interface Behavior {
 
     /**
@@ -9,4 +10,10 @@ public interface Behavior {
      * @return the value for that time span
      */
     double nextTime();
+
+    /**
+     * gets the randomizer
+     * @return randomizer
+     */
+    Randomizer getRandomizer();
 }

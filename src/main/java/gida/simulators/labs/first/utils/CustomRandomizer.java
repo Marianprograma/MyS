@@ -18,12 +18,11 @@ public class CustomRandomizer implements Randomizer {
     @Override
     public double nextGaussiano(int mean, double stddev){
         int n = 24;
-        double varianzaz = Math.sqrt(2);
         double z = 0;
          for(int i = 0; i < n; i++){
              z += nextRandom();
         }
-        double zprima = (z - (n/2)) / varianzaz;
+        double zprima = (z - 12) / 2;
         return (zprima * stddev + mean);
     }
 

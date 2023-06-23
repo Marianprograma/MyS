@@ -47,12 +47,10 @@ public class Arrival extends Event {
             }
             ((CustomReport)report).setTotalIdleTime(((CustomReport)report).getTotalIdleTime(servidor.getId()) + servidor.getIdleTime(),servidor.getId());
         }
-        ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane() + 1);
+        ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane(servidor.getId()) + 1,servidor.getId());
         
         //abstraer para que esto pase para todas las entidades
         Entity entity = this.getEntity().getNextEntity();
-        System.out.println("ENTIDAD QUE LLEGO= "+entity.getClass());
-        System.out.println("Al servidor = "+servidor.getId());
         Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
         entity.setArrival(a);
         fel.insert(a);

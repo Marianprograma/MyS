@@ -21,11 +21,9 @@ public class Heavy extends Aircraft {
     }
 
     @Override
-    public void wearAway(Airstrip airstrip, Randomizer randomizer) {
+    public void applyEffectOnServer(Randomizer randomizer) {
         double uniform;
         uniform= randomizer.nextUniforme(3,6);
-        airstrip.setWear(airstrip.getWear() - uniform);
-
+        ((Airstrip) this.getServer()).setWear(((Airstrip) this.getServer()).getWear() - uniform);
     }
-    
 }

@@ -19,6 +19,7 @@ public class EndOfService extends Event {
     @Override
     public void planificate(FutureEventList fel, List<Server> servers,Reportable report) {
         Server servidor = getEntity().getServer();
+        this.getEntity().applyEffectOnServer(this.getBehavior().getRandomizer());
 
         //Si hay cola
         if(!(servidor.queuesEmpty())){
@@ -27,11 +28,11 @@ public class EndOfService extends Event {
 
             //Tiempo de espera
             e.setWaitingTime(this.getClock() - e.getArrival().getClock());
-            if(((CustomReport)report).getMaxWaitingTime()<e.getWaitingTime()){
-                ((CustomReport)report).setMaxWaitingTime(e.getWaitingTime());
+            if(((CustomReport)report).getMaxWaitingTime(servidor.getId())<e.getWaitingTime()){
+                ((CustomReport)report).setMaxWaitingTime(e.getWaitingTime(),servidor.getId());
             }
-            ((CustomReport)report).setTotalWaitingTime(((CustomReport)report).getTotalWaitingTime() + e.getWaitingTime());
-            ((CustomReport)report).setContQueue(((CustomReport)report).getContQueue()+1);
+            ((CustomReport)report).setTotalWaitingTime(((CustomReport)report).getTotalWaitingTime(servidor.getId()) + e.getWaitingTime(),servidor.getId());
+            ((CustomReport)report).setContQueue(((CustomReport)report).getContQueue(servidor.getId())+1, servidor.getId());
             servidor.setCurrentEntity(e);
             e.setServer(servidor);
             Event proxSalida = new EndOfService(this.getClock() + this.getBehavior().nextTime(), e,(EndOfServiceBehavior)this.getBehavior());
@@ -44,10 +45,10 @@ public class EndOfService extends Event {
 
         //Tiempo de transito
         getEntity().setTransitTime(this.getClock() - getEntity().getArrival().getClock());
-        if(((CustomReport)report).getMaxTransitTime()<getEntity().getTransitTime()){
-            ((CustomReport)report).setMaxTransitTime(getEntity().getTransitTime());
+        if(((CustomReport)report).getMaxTransitTime(servidor.getId())<getEntity().getTransitTime()){
+            ((CustomReport)report).setMaxTransitTime(getEntity().getTransitTime(),servidor.getId());
         }
-        ((CustomReport)report).setTotalTransitTime(((CustomReport)report).getTotalTransitTime()+getEntity().getTransitTime());
+        ((CustomReport)report).setTotalTransitTime(((CustomReport)report).getTotalTransitTime(servidor.getId())+getEntity().getTransitTime(),servidor.getId());
     }
 
     @Override

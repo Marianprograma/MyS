@@ -21,10 +21,9 @@ public class LightWeight extends Aircraft {
     }
 
     @Override
-    public void wearAway(Airstrip airstrip, Randomizer randomizer) {
+    public void applyEffectOnServer( Randomizer randomizer) {
         double uniform;
         uniform=randomizer.nextUniforme(0,1);
-        airstrip.setWear(airstrip.getWear() - uniform);
-    }
-    
+        ((Airstrip) this.getServer()).setWear(((Airstrip) this.getServer()).getWear() - uniform);
+    }    
 }

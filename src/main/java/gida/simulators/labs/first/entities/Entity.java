@@ -2,6 +2,7 @@ package gida.simulators.labs.first.entities;
 
 import gida.simulators.labs.first.events.Arrival;
 import gida.simulators.labs.first.resources.Server;
+import gida.simulators.labs.first.utils.Randomizer;
 
 public abstract class Entity {
 
@@ -65,5 +66,5 @@ public abstract class Entity {
         this.arrival = arrival;
     }
 
-
+    public abstract void applyEffectOnServer(Randomizer randomizer);
 }

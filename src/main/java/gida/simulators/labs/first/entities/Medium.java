@@ -21,11 +21,10 @@ public class Medium extends Aircraft {
     }
 
     @Override
-    public void wearAway(Airstrip airstrip, Randomizer randomizer) {
+    public void applyEffectOnServer( Randomizer randomizer) {
         double uniform;
         uniform=randomizer.nextUniforme(1, 4);
-        airstrip.setWear(airstrip.getWear() - uniform);
+        ((Airstrip) this.getServer()).setWear(((Airstrip) this.getServer()).getWear() - uniform);
         //suponemos que va a funcionar el tema de los airstrip por el tema de que son distintos airstrip, pero como vienen por parametro creemos que el extend funcionaria
     }
-    
 }

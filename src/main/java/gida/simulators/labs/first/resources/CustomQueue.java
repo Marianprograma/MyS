@@ -17,10 +17,15 @@ public class CustomQueue implements Queue {
     }
 
     public boolean isUsable(){
-        if(this.queue.get(this.queue.size()).getClass() != Maintenance.class){
+        if(this.queue.isEmpty()){
             return true;
-        }else{
-            return false;
+        }else
+        {
+            if(this.queue.get( this.queue.size()-1).getClass() != Maintenance.class){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 

@@ -51,6 +51,11 @@ public class ArrivalBehavior implements Behavior {
  
         return ret;
     }
+
+    @Override
+    public Randomizer getRandomizer() {
+        return this.randomizer;
+    }
 }
 
 
