@@ -28,19 +28,19 @@ public class ArrivalBehavior implements Behavior {
         double ret = 0.0;
         double resto = entity.getArrival().getClock() % 1440;
         if(entity.getClass()==LightWeight.class){
-            if((resto>480 && resto<600) || (resto> 1140 && resto<1320)){
+            if((resto>420 && resto<600) || (resto> 1140 && resto<1320)){
                 ret = this.randomizer.nextExponencial(20);
             }else{
                 ret = this.randomizer.nextExponencial(40);
             }
         }else if(entity.getClass()==Medium.class){
-            if((resto>480 && resto<600) || (resto> 1140 && resto<1320)){
+            if((resto>420 && resto<600) || (resto> 1140 && resto<1320)){
                 ret = this.randomizer.nextExponencial(15);
             }else{
                 ret = this.randomizer.nextExponencial(30);
             }
         }else if(entity.getClass()==Heavy.class){
-            if((resto>480 && resto<600) || (resto> 1140 && resto<1320)){
+            if((resto>420 && resto<600) || (resto> 1140 && resto<1320)){
                 ret = this.randomizer.nextGaussiano(30, 2);
             }else{
                 ret = this.randomizer.nextGaussiano(60, 2);

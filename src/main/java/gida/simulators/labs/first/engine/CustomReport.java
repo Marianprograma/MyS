@@ -1,5 +1,6 @@
 package gida.simulators.labs.first.engine;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import gida.simulators.labs.first.resources.AirstripL;
@@ -7,16 +8,26 @@ import gida.simulators.labs.first.resources.AirstripM;
 import gida.simulators.labs.first.resources.Server;
 
 public class CustomReport implements Reportable {
-    private double[] totalWaitingTime = new double[5];
-    private double[] maxWaitingTime = new double[5];
-    private double[] totalTransitTime = new double[5];
-    private double[] maxTransitTime = new double[5];
-    private double[] totalIdleTime = new double[5];
-    private double[] maxIdleTime = new double[5];
-    private int[] contPlane = new int[5];
-    private int[] maxSize = new int[5];
-    private int[] contQueue = new int[5];
+    private double[] totalWaitingTime = new double[10];
+    private double[] maxWaitingTime = new double[10];
+    private double[] totalTransitTime = new double[10];
+    private double[] maxTransitTime = new double[10];
+    private double[] totalIdleTime = new double[10];
+    private double[] maxIdleTime = new double[10];
+    private int[] contPlane = new int[10];
+    private int[] maxSize = new int[10];
+    private int[] contQueue = new int[10];
+    private double[] remainingWear = new double[10];
     
+    
+    public double getRemainingWear(int id) {
+        return remainingWear[id];
+    }
+
+    public void setRemainingWear(double remainingWear,int id) {
+        this.remainingWear[id] = remainingWear;
+    }
+
     public int getContQueue(int id) {
         return contQueue[id];
     }
@@ -100,41 +111,41 @@ public class CustomReport implements Reportable {
                 contqH += (getContQueue(servers.get(i).getId()));
             }
         }
-
+        DecimalFormat formato1 = new DecimalFormat("#0.00");
         System.out.println("Cantidad de aviones que aterrizaron");
-        System.out.println("Livianos: " + contpL);
-        System.out.println("Medianos: " + contpM);
-        System.out.println("Pesados: " + contpH);
+        System.out.println("Livianos: " + formato1.format(contpL));
+        System.out.println("Medianos: " + formato1.format(contpM));
+        System.out.println("Pesados: " + formato1.format(contpH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Maximo tiempo de espera");
-        System.out.println("Livianos: " + maxwL);
-        System.out.println("Medianos: " + maxwM);
-        System.out.println("Pesados: " + maxwH);
+        System.out.println("Livianos: " + formato1.format(maxwL));
+        System.out.println("Medianos: " + formato1.format(maxwM));
+        System.out.println("Pesados: " + formato1.format(maxwH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Media tiempo de espera");
-        System.out.println("Livianos: " + maxwL / contqL);
-        System.out.println("Medianos: " + maxwM / contqM);
-        System.out.println("Pesados: " + maxwH / contqH);
+        System.out.println("Livianos: " + formato1.format(maxwL / contqL));
+        System.out.println("Medianos: " + formato1.format(maxwM / contqM));
+        System.out.println("Pesados: " + formato1.format(maxwH / contqH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Tiempo total de transito");
-        System.out.println("Livianos: " + totaltL);
-        System.out.println("Medianos: " + totaltM);
-        System.out.println("Pesados: " + totaltH);
+        System.out.println("Livianos: " + formato1.format(totaltL));
+        System.out.println("Medianos: " + formato1.format(totaltM));
+        System.out.println("Pesados: " + formato1.format(totaltH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Maximo tiempo de transito");
-        System.out.println("Livianos: " + maxtL);
-        System.out.println("Medianos: " + maxtM);
-        System.out.println("Pesados: " + maxtH);
+        System.out.println("Livianos: " + formato1.format(maxtL));
+        System.out.println("Medianos: " + formato1.format(maxtM));
+        System.out.println("Pesados: " + formato1.format(maxtH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Media tiempo de transito");
-        System.out.println("Livianos: " + maxtL / contpL);
-        System.out.println("Medianos: " + maxtM / contpM);
-        System.out.println("Pesados: " + maxtH / contpH);
+        System.out.println("Livianos: " + formato1.format(maxtL / contpL));
+        System.out.println("Medianos: " + formato1.format(maxtM / contpM));
+        System.out.println("Pesados: " + formato1.format(maxtH / contpH));
         System.out.println("--------------------------------------------------------------------------------");
         System.out.println("Tiempo total de espera");
-        System.out.println("Livianos: " + totalwL);
-        System.out.println("Medianos: " + totalwM);
-        System.out.println("Pesados: " + totalwH);
+        System.out.println("Livianos: " + formato1.format(totalwL));
+        System.out.println("Medianos: " + formato1.format(totalwM));
+        System.out.println("Pesados: " + formato1.format(totalwH));
         System.out.println("--------------------------------------------------------------------------------");
 
 
@@ -159,14 +170,16 @@ public class CustomReport implements Reportable {
     @Override
     public void generateReport(List<Server> servers){ 
         System.out.println("Valores");
+        DecimalFormat formato1 = new DecimalFormat("#0.00");
         valores(servers);
         for(int i=1;i<servers.size();i++){
             System.out.println("Pista: " + i);
-            System.out.println("Tiempo total de ocio pista: "+ this.getTotalIdleTime(servers.get(i).getId()));
-            System.out.println("Porcentaje del tiempo total de ocio con respecto al tiempo de simulacion pista: "+((this.getTotalIdleTime(servers.get(i).getId())*100)/40320)+" %");
-            System.out.println("Tiempo maximo de ocio pista: "+ this.getMaxIdleTime(servers.get(i).getId()));
-            System.out.println("Porcentaje del tiempo maximo de ocio con respecto al tiempo total de ocio pista: "+((this.getMaxIdleTime(servers.get(i).getId())*100)/this.getTotalIdleTime(servers.get(i).getId()))+" %");
-            System.out.println("Tamaño maximo de la cola de espera para el servidor pista: "+this.getMaxSize(servers.get(i).getId()));
+            System.out.println("Tiempo total de ocio: "+ formato1.format(this.getTotalIdleTime(servers.get(i).getId())));
+            System.out.println("Porcentaje del tiempo total de ocio con respecto al tiempo de simulacion: "+formato1.format(((this.getTotalIdleTime(servers.get(i).getId())*100)/40320))+" %");
+            System.out.println("Tiempo maximo de ocio: "+ formato1.format(this.getMaxIdleTime(servers.get(i).getId())));
+            System.out.println("Porcentaje del tiempo maximo de ocio con respecto al tiempo total de ocio: "+formato1.format(((this.getMaxIdleTime(servers.get(i).getId())*100)/this.getTotalIdleTime(servers.get(i).getId())))+" %");
+            System.out.println("Tamaño maximo de la cola de espera para el servidor: "+formato1.format(this.getMaxSize(servers.get(i).getId())));
+            System.out.println("Durabilidad del suelo restante: " + formato1.format(this.getRemainingWear(servers.get(i).getId())));
             System.out.println("--------------------------------------------------------------------------------");
         }
     }

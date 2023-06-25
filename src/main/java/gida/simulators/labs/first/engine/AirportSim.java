@@ -32,15 +32,15 @@ public class AirportSim extends Engine {
                 Aircraft a3 = new Heavy(2);
                 Maintenance maintenance = new Maintenance(3);
 
-                EndOfServiceBehavior eosbL = new EndOfServiceBehavior(randomizer,a1);
-                EndOfServiceBehavior eosbM = new EndOfServiceBehavior(randomizer,a2);
-                EndOfServiceBehavior eosbH = new EndOfServiceBehavior(randomizer,a3);
-                EndOfServiceBehavior eosbMan = new EndOfServiceBehavior(randomizer,maintenance);
-
                 ArrivalBehavior arrbL = new ArrivalBehavior(randomizer,a1);
                 ArrivalBehavior arrbM = new ArrivalBehavior(randomizer,a2);
                 ArrivalBehavior arrbH = new ArrivalBehavior(randomizer,a3);
                 ArrivalBehavior arrbMan = new ArrivalBehavior(randomizer,maintenance);
+
+                EndOfServiceBehavior eosbL = new EndOfServiceBehavior(randomizer,a1);
+                EndOfServiceBehavior eosbM = new EndOfServiceBehavior(randomizer,a2);
+                EndOfServiceBehavior eosbH = new EndOfServiceBehavior(randomizer,a3);
+                EndOfServiceBehavior eosbMan = new EndOfServiceBehavior(randomizer,maintenance);
 
                 Arrival e1 = new Arrival(0, a1, arrbL, eosbL, policy);//POLICY MODIFICAR
                 Arrival e2 = new Arrival(0, a2, arrbM, eosbM, policy);

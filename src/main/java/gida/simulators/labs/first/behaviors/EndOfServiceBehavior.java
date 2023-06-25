@@ -36,9 +36,7 @@ public class EndOfServiceBehavior implements Behavior {
                 ret=15.0;
             }
         }else if(entity.getClass()==Medium.class){
-            int a = 10;
-            int b = 20;
-            ret=this.randomizer.nextUniforme(a, b);
+            ret=this.randomizer.nextUniforme(10, 20);
         }else if(entity.getClass()==Heavy.class){
             if(r<0.65){
                 ret=40.0;
