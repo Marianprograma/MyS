@@ -27,37 +27,32 @@ public class AirportSim extends Engine {
                 super(report);
                 this.servers = servers;
                 this.fel = new FutureEventList();
+                fel.insert(new StopSimulation(endClock, this));
+
                 Aircraft a1 = new LightWeight(0);
                 Aircraft a2 = new Medium(1);
                 Aircraft a3 = new Heavy(2);
                 Maintenance maintenance = new Maintenance(3);
-
-                ArrivalBehavior arrbL = new ArrivalBehavior(randomizer,a1);
-                ArrivalBehavior arrbM = new ArrivalBehavior(randomizer,a2);
-                ArrivalBehavior arrbH = new ArrivalBehavior(randomizer,a3);
-                ArrivalBehavior arrbMan = new ArrivalBehavior(randomizer,maintenance);
-
-                EndOfServiceBehavior eosbL = new EndOfServiceBehavior(randomizer,a1);
-                EndOfServiceBehavior eosbM = new EndOfServiceBehavior(randomizer,a2);
-                EndOfServiceBehavior eosbH = new EndOfServiceBehavior(randomizer,a3);
-                EndOfServiceBehavior eosbMan = new EndOfServiceBehavior(randomizer,maintenance);
-
-                Arrival e1 = new Arrival(0, a1, arrbL, eosbL, policy);//POLICY MODIFICAR
-                Arrival e2 = new Arrival(0, a2, arrbM, eosbM, policy);
-                Arrival e3 = new Arrival(0, a3, arrbH, eosbH, policy);
-                Arrival e4 = new Arrival(0, maintenance, arrbMan, eosbMan, policy);
-
-                e1.getEntity().setArrival(e1);
-                e2.getEntity().setArrival(e2);
-                e3.getEntity().setArrival(e3);
-                e4.getEntity().setArrival(e4);
-
-                fel.insert(new StopSimulation(endClock, this));
                 
+                Arrival e1 = new Arrival(0, a1, new ArrivalBehavior(randomizer), new EndOfServiceBehavior(randomizer), policy);//POLICY MODIFICAR
+                a1.setArrival(e1);
                 fel.insert(e1);
+
+                Arrival e2 = new Arrival(0, a2, new ArrivalBehavior(randomizer), new EndOfServiceBehavior(randomizer), policy);
+                a2.setArrival(e2);
                 fel.insert(e2);
+
+                Arrival e3 = new Arrival(0, a3, new ArrivalBehavior(randomizer), new EndOfServiceBehavior(randomizer), policy);
+                a3.setArrival(e3);
                 fel.insert(e3);
+
+                Arrival e4 = new Arrival(0, maintenance, new ArrivalBehavior(randomizer), new EndOfServiceBehavior(randomizer), policy);
+                maintenance.setArrival(e4);
                 fel.insert(e4);
+
+
+                
+                
             }
 
     @Override

@@ -36,7 +36,7 @@ public class EndOfService extends Event {
             ((CustomReport)report).setContQueue(((CustomReport)report).getContQueue(servidor.getId())+1, servidor.getId());
             servidor.setCurrentEntity(e);
             e.setServer(servidor);
-            Event proxSalida = new EndOfService(this.getClock() + this.getBehavior().nextTime(), e,(EndOfServiceBehavior)this.getBehavior());
+            Event proxSalida = new EndOfService(this.getClock() + this.getBehavior().nextTime(this.getEntity()), e,(EndOfServiceBehavior)this.getBehavior());
             fel.insert(proxSalida);
             
         }else{

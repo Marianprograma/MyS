@@ -11,12 +11,10 @@ import gida.simulators.labs.first.utils.Randomizer;
 public class EndOfServiceBehavior implements Behavior {
 
     private Randomizer randomizer;
-    private Entity entity;
     //private Distribution<Double> distribution;
 
-    public EndOfServiceBehavior(Randomizer randomizer, Entity entity) {
+    public EndOfServiceBehavior(Randomizer randomizer) {
         this.randomizer = randomizer;
-        this.entity = entity;
     }
 
     /**
@@ -24,7 +22,7 @@ public class EndOfServiceBehavior implements Behavior {
      * 
      */
     @Override
-    public double nextTime() {
+    public double nextTime(Entity entity) {
         double ret=0.0;
         double r = this.randomizer.nextRandom();
         if(entity.getClass()==LightWeight.class){

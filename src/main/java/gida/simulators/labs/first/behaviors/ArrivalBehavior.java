@@ -11,12 +11,10 @@ import gida.simulators.labs.first.utils.Randomizer;
 public class ArrivalBehavior implements Behavior {
 
     private Randomizer randomizer;
-    private Entity entity;
     //private Distribution<Double> distribution;
 
-    public ArrivalBehavior(Randomizer randomizer, Entity entity) {
+    public ArrivalBehavior(Randomizer randomizer) {
         this.randomizer = randomizer;
-        this.entity = entity;
     }
 
     /**
@@ -24,9 +22,10 @@ public class ArrivalBehavior implements Behavior {
      * 
      */
     @Override
-    public double nextTime() {
+    public double nextTime(Entity entity) {
         double ret = 0.0;
         double resto = entity.getArrival().getClock() % 1440;
+        //System.out.println(resto);
         if(entity.getClass()==LightWeight.class){
             if((resto>420 && resto<600) || (resto> 1140 && resto<1320)){
                 ret = this.randomizer.nextExponencial(20);

@@ -37,7 +37,7 @@ public class Arrival extends Event {
         }else{
             servidor.setCurrentEntity(this.getEntity());
             this.getEntity().setServer(servidor);
-            Event eos = new EndOfService(this.getClock() + this.endOfServiceBehavior.nextTime(), this.getEntity(), this.endOfServiceBehavior);
+            Event eos = new EndOfService(this.getClock() + this.endOfServiceBehavior.nextTime(this.getEntity()), this.getEntity(), this.endOfServiceBehavior);
             fel.insert(eos);
             //analytical
             servidor.setIdleTimeFinishedMark(this.getClock());
@@ -50,8 +50,8 @@ public class Arrival extends Event {
         ((CustomReport)report).setContPlane(((CustomReport)report).getContPlane(servidor.getId()) + 1,servidor.getId());
         
         //abstraer para que esto pase para todas las entidades
-        Entity entity = this.getEntity().getNextEntity();
-        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
+        Entity entity = this.getEntity().getNextEntity().getNextEntity();
+        Arrival a = new Arrival(this.getClock() + this.getBehavior().nextTime(this.getEntity()), entity, this.getBehavior(), this.endOfServiceBehavior, this.policy);
         entity.setArrival(a);
         fel.insert(a);
         
