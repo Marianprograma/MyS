@@ -2,6 +2,7 @@ package gida.simulators.labs.first;
 
 import gida.simulators.labs.first.engine.AirportSim;
 import gida.simulators.labs.first.engine.CustomReport;
+import gida.simulators.labs.first.engine.CustomReportTotal;
 //import gida.simulators.labs.first.entities.Maintenance;
 import gida.simulators.labs.first.policies.MultipleServerSelectionPolicy;
 //import gida.simulators.labs.first.policies.UniqueServerSelectionPolicy;
@@ -14,6 +15,11 @@ public class App {
     private static final float SIMULATION_LENGHT = 40320f;
 
     public static void main(String[] args) {
-        new AirportSim(SIMULATION_LENGHT, ScenarioBuilder.multipleServersOneQueue(1,2,1), new MultipleServerSelectionPolicy(), new CustomRandomizer(), new CustomReport()).run();
+        CustomReportTotal customReportTotal = new CustomReportTotal();
+        for(int i=0;i<50;i++){
+            new AirportSim(SIMULATION_LENGHT, ScenarioBuilder.multipleServersOneQueue(1,2,1), new MultipleServerSelectionPolicy(), new CustomRandomizer(), new CustomReport(),customReportTotal).run();
+        }
+        
+        //customReportTotal.generateReport();
     }
 }

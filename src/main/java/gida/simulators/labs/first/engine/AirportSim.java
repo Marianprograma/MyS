@@ -20,12 +20,13 @@ public class AirportSim extends Engine {
 
     private FutureEventList fel;
     private List<Server> servers;
-
+    private CustomReport report;
 
     public AirportSim(double endClock, List<Server> servers, ServerSelectionPolicy policy,
-            Randomizer randomizer, Reportable report) {
-                super(report);
+            Randomizer randomizer, CustomReport report, Reportable reportTotal) {
+                super(reportTotal);
                 this.servers = servers;
+                this.report = report;
                 this.fel = new FutureEventList();
                 fel.insert(new StopSimulation(endClock, this));
 
@@ -50,17 +51,15 @@ public class AirportSim extends Engine {
                 maintenance.setArrival(e4);
                 fel.insert(e4);
 
-
-                
-                
             }
 
     @Override
     public void run() {
         while(!this.isStop()){
             Event e =  fel.getImminent();
-            e.planificate(fel,this.servers,this.getReportable());
+            e.planificate(fel,this.servers,this.report);
         }
-        getReportable().generateReport(this.servers);
+        report.generateReport(this.servers);
+        ((CustomReportTotal)getReportable()).saveValue(this.report);
     }
 }

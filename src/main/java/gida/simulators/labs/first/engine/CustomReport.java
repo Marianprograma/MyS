@@ -18,8 +18,83 @@ public class CustomReport implements Reportable {
     private int[] maxSize = new int[10];
     private int[] contQueue = new int[10];
     private double[] remainingWear = new double[10];
+    //
+    private double maxtL, maxtM, maxtH, totaltL,totaltM,totaltH,maxwL,maxwM,maxwH;
+    private double totalwL,totalwM,totalwH,contpL,contpM,contpH,contqL,contqM,contqH;
     
     
+    public double getMaxtL() {
+        return maxtL;
+    }
+
+    public double getMaxtM() {
+        return maxtM;
+    }
+
+    public double getMaxtH() {
+        return maxtH;
+    }
+
+    public double getTotaltL() {
+        return totaltL;
+    }
+
+    public double getTotaltM() {
+        return totaltM;
+    }
+
+    public double getTotaltH() {
+        return totaltH;
+    }
+
+    public double getMaxwL() {
+        return maxwL;
+    }
+
+    public double getMaxwM() {
+        return maxwM;
+    }
+
+    public double getMaxwH() {
+        return maxwH;
+    }
+
+    public double getTotalwL() {
+        return totalwL;
+    }
+
+    public double getTotalwM() {
+        return totalwM;
+    }
+
+    public double getTotalwH() {
+        return totalwH;
+    }
+
+    public double getContpL() {
+        return contpL;
+    }
+
+    public double getContpM() {
+        return contpM;
+    }
+
+    public double getContpH() {
+        return contpH;
+    }
+
+    public double getContqL() {
+        return contqL;
+    }
+
+    public double getContqM() {
+        return contqM;
+    }
+
+    public double getContqH() {
+        return contqH;
+    }
+
     public double getRemainingWear(int id) {
         return remainingWear[id];
     }
