@@ -24,7 +24,7 @@ public class ArrivalBehavior implements Behavior {
     @Override
     public double nextTime(Entity entity) {
         double ret = 0.0;
-        double resto = entity.getArrival().getClock() % 1440;
+        double resto = (entity.getArrival().getClock()) % 1440;
         //System.out.println(resto);
         if(entity.getClass()==LightWeight.class){
             if((resto>420 && resto<600) || (resto> 1140 && resto<1320)){

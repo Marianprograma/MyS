@@ -27,6 +27,7 @@ public class AirportSim extends Engine {
                 super(reportTotal);
                 this.servers = servers;
                 this.report = report;
+
                 this.fel = new FutureEventList();
                 fel.insert(new StopSimulation(endClock, this));
 
@@ -61,5 +62,6 @@ public class AirportSim extends Engine {
         }
         report.generateReport(this.servers);
         ((CustomReportTotal)getReportable()).saveValue(this.report);
+        ((CustomReportTotal)getReportable()).calculateInterval();
     }
 }
