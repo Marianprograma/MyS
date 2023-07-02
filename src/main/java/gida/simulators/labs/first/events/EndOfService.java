@@ -25,7 +25,6 @@ public class EndOfService extends Event {
 
         //Si hay cola
         if(!(servidor.queuesEmpty())){
-
             Entity e = servidor.dequeue();
 
             //Tiempo de espera
@@ -36,11 +35,11 @@ public class EndOfService extends Event {
                 }
                 ((CustomReport)report).setTotalWaitingTime(((CustomReport)report).getTotalWaitingTime(servidor.getId()) + e.getWaitingTime(),servidor.getId());
                 ((CustomReport)report).setContQueue(((CustomReport)report).getContQueue(servidor.getId())+1, servidor.getId());
+            }
                 servidor.setCurrentEntity(e);
                 e.setServer(servidor);
                 Event proxSalida = new EndOfService(this.getClock() + this.getBehavior().nextTime(this.getEntity()), e,(EndOfServiceBehavior)this.getBehavior());
                 fel.insert(proxSalida);
-            }
         }else{
             servidor.setCurrentEntity(null);
             servidor.setIdleTimeStartMark(this.getClock());

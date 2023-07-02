@@ -171,7 +171,7 @@ public class CustomReportTotal implements Reportable{
         meanTransitMaxTime[2] += report.getMaxtH();
 
         //MEDIA DE DATOS POR PISTA
-        for (int i = 0; i < 4; i++) { 
+        for (int i = 0; i < 5; i++) { 
             meanIdleTotal[i]+= report.getServerTotalIdleTime(i);
             meanIdleMax[i]+=report.getServerTotalMaxIdleTime(i);
             meanQueueSizeMax[i]+= report.getServerMaxQueueWaitingTime(i);
@@ -279,7 +279,7 @@ public class CustomReportTotal implements Reportable{
         }
         System.out.println("----------------------------------------------------------------");
         System.out.println("REPORTE TOTAL POR PISTA");
-        for(int j=0; j<4; j++){
+        for(int j=0; j<5; j++){
             System.out.println("Pista: "+ (j+1) + " Tipo: "+ report.getServers().get(j+1).getClass().getSimpleName());
             System.out.println("Media de tiempo de ocio: "+ formato1.format((getMeanIdleTotal(j)/50)));
             System.out.println("Porcentaje de ocio que representa con respecto al tiempo de ejecucion: "+ ((getMeanIdleTotal(j)/50)*100)/40320f);

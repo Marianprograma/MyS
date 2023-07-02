@@ -1,6 +1,6 @@
 package gida.simulators.labs.first.engine;
 
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 import java.util.List;
 
 import gida.simulators.labs.first.resources.AirstripH;
@@ -28,10 +28,10 @@ public class CustomReport implements Reportable {
         return contPlaneTotal;
     }
 
-    private double[]serverTotalIdleTime = new double[4]; 
-    private double[]serverTotalMaxIdleTime = new double[4];
-    private double[]serverMaxQueueWaitingTime = new double[4]; 
-    private double[]serverDurability= new double[4];
+    private double[]serverTotalIdleTime = new double[5]; 
+    private double[]serverTotalMaxIdleTime = new double[5];
+    private double[]serverMaxQueueWaitingTime = new double[5]; 
+    private double[]serverDurability= new double[5];
     private List<Server> serverss;
 
     public void resetCustom (){
@@ -257,7 +257,7 @@ public class CustomReport implements Reportable {
             }
         }
         contPlaneTotal= contpL+contpM+contpH;
-        DecimalFormat formato1 = new DecimalFormat("#0.00");
+        //DecimalFormat formato1 = new DecimalFormat("#0.00");
         //MEDIAS DE LOS VALORES DEL REPORTE
 /* 
         System.out.println("Cantidad de aviones que aterrizaron");
@@ -321,7 +321,7 @@ public class CustomReport implements Reportable {
    
     @Override
     public void generateReport(List<Server> servers){ 
-        DecimalFormat formato1 = new DecimalFormat("#0.00");
+        //DecimalFormat formato1 = new DecimalFormat("#0.00");
         valores(servers);
         //System.out.println("Valores");
         for(int i=1;i<servers.size();i++){
